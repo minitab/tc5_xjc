@@ -4,7 +4,7 @@
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a href="javascript:;">所有商品</a></li>
-        <li><a href="{:url('/add')}">添加商品</a></li>
+        <li><a href="{:url('Goods/add')}">添加商品</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('Goods/index')}">
         分类:
@@ -29,26 +29,26 @@
         <div class="table-actions">
             <notempty name="category">
                 <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                        data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                        data-action="{:url('Goods/listOrder')}">{:lang('SORT')}
                 </button>
             </notempty>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/publish',array('yes'=>1))}" data-subcheck="true">发布
+                    data-action="{:url('Goods/publish',array('yes'=>1))}" data-subcheck="true">上架
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布
+                    data-action="{:url('Goods/publish',array('no'=>1))}" data-subcheck="true">下架
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶
+                    data-action="{:url('Goods/top',array('yes'=>1))}" data-subcheck="true">置顶
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶
+                    data-action="{:url('Goods/top',array('no'=>1))}" data-subcheck="true">取消置顶
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐
+                    data-action="{:url('Goods/recommend',array('yes'=>1))}" data-subcheck="true">热品
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐
+                    data-action="{:url('Goods/recommend',array('no'=>1))}" data-subcheck="true">取消热品
             </button>
             <!--
             <notempty name="category">
@@ -57,7 +57,7 @@
             <button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>
             -->
             <button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+                    data-action="{:url('Goods/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
                 {:lang('DELETE')}
             </button>
         </div>
@@ -74,15 +74,15 @@
                 </notempty>
                 <th width="50">ID</th>
                 <th>名称</th>
-                <th>数量</th>
-                <th width="50">单位</th>
-                <th width="65">价格</th>
-                <th width="65">优惠价</th>
-                <th width="160">库存</th>
+                <th>缩略图</th>
+                <th width="60">单位</th>
+                <th width="90">价格</th>
+                <th width="90">优惠价</th>
+                <th width="90">库存</th>
                 <th width="130">更新时间</th>
                 <th width="130">创建时间</th>
                 <th width="70">状态</th>
-                <th width="90">操作</th>
+                <th width="135">操作</th>
             </tr>
             </thead>
             <foreach name="articles" item="vo">
@@ -182,8 +182,8 @@
                         </notempty>
                     </td>
                     <td>
-                        <a href="{:url('AdminArticle/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
-                        <a href="{:url('AdminArticle/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
+                        <a href="{:url('Goods/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a href="{:url('Goods/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
                         <a href="{:url('Goods/up',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('UP')}</a>
                         <a href="{:url('Goods/down',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DOWN')}</a>
                     </td>
@@ -198,41 +198,41 @@
                 </notempty>
                 <th width="50">ID</th>
                 <th>名称</th>
-                <th>数量</th>
-                <th width="50">单位</th>
-                <th width="65">价格</th>
-                <th width="65">优惠价</th>
-                <th width="160">库存</th>
+                <th>缩略图</th>
+                <th width="60">单位</th>
+                <th width="90">价格</th>
+                <th width="90">优惠价</th>
+                <th width="90">库存</th>
                 <th width="130">更新时间</th>
                 <th width="130">创建时间</th>
                 <th width="70">状态</th>
-                <th width="90">操作</th>
+                <th width="135">操作</th>
             </tr>
             </tfoot>
         </table>
         <div class="table-actions">
             <notempty name="category">
                 <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                        data-action="{:url('AdminArticle/listOrder')}">{:lang('SORT')}
+                        data-action="{:url('Goods/listOrder')}">{:lang('SORT')}
                 </button>
             </notempty>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/publish',array('yes'=>1))}" data-subcheck="true">发布
+                    data-action="{:url('Goods/publish',array('yes'=>1))}" data-subcheck="true">上架
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/publish',array('no'=>1))}" data-subcheck="true">取消发布
+                    data-action="{:url('Goods/publish',array('no'=>1))}" data-subcheck="true">下架
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/top',array('yes'=>1))}" data-subcheck="true">置顶
+                    data-action="{:url('Goods/top',array('yes'=>1))}" data-subcheck="true">置顶
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/top',array('no'=>1))}" data-subcheck="true">取消置顶
+                    data-action="{:url('Goods/top',array('no'=>1))}" data-subcheck="true">取消置顶
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/recommend',array('yes'=>1))}" data-subcheck="true">推荐
+                    data-action="{:url('Goods/recommend',array('yes'=>1))}" data-subcheck="true">热品
             </button>
             <button class="btn btn-primary btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/recommend',array('no'=>1))}" data-subcheck="true">取消推荐
+                    data-action="{:url('Goods/recommend',array('no'=>1))}" data-subcheck="true">取消热品
             </button>
             <!--
             <notempty name="category">
@@ -241,7 +241,7 @@
             <button class="btn btn-primary btn-sm js-articles-copy" type="button">批量复制</button>
             -->
             <button class="btn btn-danger btn-sm js-ajax-submit" type="submit"
-                    data-action="{:url('AdminArticle/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
+                    data-action="{:url('Goods/delete')}" data-subcheck="true" data-msg="您确定删除吗？">
                 {:lang('DELETE')}
             </button>
         </div>
@@ -279,7 +279,7 @@
                 }
 
                 ids = ids.join(',');
-                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=copy&ids=" + ids, {
+                art.dialog.open("__ROOT__/index.php?g=admin&m=Goods&a=copy&ids=" + ids, {
                     title: "批量复制",
                     width: "300px"
                 });
@@ -305,7 +305,7 @@
                 }
 
                 ids = ids.join(',');
-                art.dialog.open("__ROOT__/index.php?g=portal&m=AdminArticle&a=move&old_term_id={$term.term_id|default=0}&ids=" + ids, {
+                art.dialog.open("__ROOT__/index.php?g=admin&m=Goods&a=move&old_term_id={$term.term_id|default=0}&ids=" + ids, {
                     title: "批量移动",
                     width: "300px"
                 });
