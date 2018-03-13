@@ -13,6 +13,9 @@ use think\Db;
 class GoodsController extends AdminBaseController
 {
     public function index(){
-        echo '商品列表';
+
+
+        $this->assign('articles', []);
+        return $this->fetch();
     }
 }
