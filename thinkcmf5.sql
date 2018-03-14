@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-03-07 17:44:42
+Date: 2018-03-14 17:30:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `cmf_admin_menu` (
   KEY `status` (`status`),
   KEY `parent_id` (`parent_id`),
   KEY `controller` (`controller`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of cmf_admin_menu
@@ -204,13 +204,14 @@ INSERT INTO `cmf_admin_menu` VALUES ('160', '158', '2', '0', '10000', 'user', 'A
 INSERT INTO `cmf_admin_menu` VALUES ('161', '158', '1', '0', '10000', 'user', 'AdminUserAction', 'sync', '', '同步用户操作', '', '同步用户操作');
 INSERT INTO `cmf_admin_menu` VALUES ('164', '1', '1', '1', '10000', 'plugin/Demo', 'AdminIndex', 'index', '', '演示插件', '', '演示插件');
 INSERT INTO `cmf_admin_menu` VALUES ('165', '164', '1', '0', '10000', 'plugin/Demo', 'AdminIndex', 'setting', '', '演示插件设置', '', '演示插件设置');
-INSERT INTO `cmf_admin_menu` VALUES ('166', '0', '0', '1', '20', 'shop', 'Goods', 'default', '', '商品管理', 'gift', '');
-INSERT INTO `cmf_admin_menu` VALUES ('167', '0', '0', '1', '30', 'shop', 'Combo', 'default', '', '套餐管理', 'cutlery', '');
-INSERT INTO `cmf_admin_menu` VALUES ('168', '0', '0', '1', '40', 'shop', 'Order', 'default', '', '订单管理', 'shopping-cart', '');
-INSERT INTO `cmf_admin_menu` VALUES ('169', '0', '0', '1', '50', 'shop', 'Finance', 'default', '', '财务管理', 'calculator', '');
-INSERT INTO `cmf_admin_menu` VALUES ('170', '166', '1', '1', '10000', 'shop', 'Goods', 'index', '', '商品列表', '', '');
-INSERT INTO `cmf_admin_menu` VALUES ('171', '167', '1', '1', '10000', 'shop', 'Combo', 'index', '', '套餐列表', '', '');
-INSERT INTO `cmf_admin_menu` VALUES ('172', '168', '1', '1', '10000', 'shop', 'Order', 'index', '', '订单列表', '', '');
+INSERT INTO `cmf_admin_menu` VALUES ('166', '0', '0', '1', '20', 'admin', 'Goods', 'default', '', '商品管理', 'gift', '');
+INSERT INTO `cmf_admin_menu` VALUES ('167', '0', '0', '1', '30', 'admin', 'Combo', 'default', '', '套餐管理', 'cutlery', '');
+INSERT INTO `cmf_admin_menu` VALUES ('168', '0', '0', '1', '40', 'admin', 'Order', 'default', '', '订单管理', 'shopping-cart', '');
+INSERT INTO `cmf_admin_menu` VALUES ('169', '0', '0', '1', '50', 'admin', 'Finance', 'default', '', '财务管理', 'calculator', '');
+INSERT INTO `cmf_admin_menu` VALUES ('170', '166', '1', '1', '10000', 'admin', 'Goods', 'index', '', '商品列表', '', '');
+INSERT INTO `cmf_admin_menu` VALUES ('171', '167', '1', '1', '10000', 'admin', 'Combo', 'index', '', '套餐列表', '', '');
+INSERT INTO `cmf_admin_menu` VALUES ('172', '168', '1', '1', '10000', 'admin', 'Order', 'index', '', '订单列表', '', '');
+INSERT INTO `cmf_admin_menu` VALUES ('173', '169', '1', '1', '10000', 'admin', 'Finance', 'index', '', '财务报表', '', '');
 
 -- ----------------------------
 -- Table structure for `cmf_asset`
@@ -231,11 +232,13 @@ CREATE TABLE `cmf_asset` (
   `suffix` varchar(10) NOT NULL DEFAULT '' COMMENT '文件后缀名,不包括点',
   `more` text COMMENT '其它详细信息,JSON格式',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
 
 -- ----------------------------
 -- Records of cmf_asset
 -- ----------------------------
+INSERT INTO `cmf_asset` VALUES ('1', '1', '35383', '1520926687', '1', '0', 'dee9046d4f4862c26db60b1b5772b0d0817474c5bbd1a2b87fd8b3a1da4f01bc', 'IMG_20150430_145247.jpg', 'portal/20180313/a5d4c9acffd6b7d5177c336471618f61.jpg', 'dee9046d4f4862c26db60b1b5772b0d0', '67ea898087d144e8eb8313b367bff888a16f87e9', 'jpg', null);
+INSERT INTO `cmf_asset` VALUES ('2', '1', '26434', '1520997263', '1', '0', '142e5d1c1663bda7d89036edb763ad2979a2000c6eb2013cca8d377b07a987e3', 'IMG_20150430_145354.jpg', 'default/20180314/2cedd78b1d695e024f623f09bce12c40.jpg', '142e5d1c1663bda7d89036edb763ad29', '9b4869f1bf7bb60eacdb479a0473b57fe5b542d4', 'jpg', null);
 
 -- ----------------------------
 -- Table structure for `cmf_auth_access`
@@ -271,7 +274,7 @@ CREATE TABLE `cmf_auth_rule` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `module` (`app`,`status`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
 
 -- ----------------------------
 -- Records of cmf_auth_rule
@@ -446,6 +449,7 @@ INSERT INTO `cmf_auth_rule` VALUES ('169', '1', 'shop', 'admin_url', 'shop/Finan
 INSERT INTO `cmf_auth_rule` VALUES ('170', '1', 'shop', 'admin_url', 'shop/Goods/index', '', '商品列表', '');
 INSERT INTO `cmf_auth_rule` VALUES ('171', '1', 'shop', 'admin_url', 'shop/Combo/index', '', '套餐列表', '');
 INSERT INTO `cmf_auth_rule` VALUES ('172', '1', 'shop', 'admin_url', 'shop/Order/index', '', '订单列表', '');
+INSERT INTO `cmf_auth_rule` VALUES ('173', '1', 'admin', 'admin_url', 'admin/Finance/index', '', '财务报表', '');
 
 -- ----------------------------
 -- Table structure for `cmf_comment`
@@ -696,11 +700,15 @@ CREATE TABLE `cmf_portal_category` (
   `one_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类文章页模板',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
 
 -- ----------------------------
 -- Records of cmf_portal_category
 -- ----------------------------
+INSERT INTO `cmf_portal_category` VALUES ('1', '0', '0', '1', '0', '10000', '后端开发', '', '0-1', '', '', '', 'list', 'article', '{\"thumbnail\":\"\"}');
+INSERT INTO `cmf_portal_category` VALUES ('2', '0', '0', '1', '0', '10000', '前端开发', '', '0-2', '', '', '', 'list', 'article', '{\"thumbnail\":\"\"}');
+INSERT INTO `cmf_portal_category` VALUES ('3', '1', '0', '1', '0', '10000', 'PHP', '', '0-1-3', '', '', '', 'list', 'article', '{\"thumbnail\":\"\"}');
+INSERT INTO `cmf_portal_category` VALUES ('4', '1', '0', '1', '0', '10000', 'JAVA', '', '0-1-4', '', '', '', 'list', 'article', '{\"thumbnail\":\"\"}');
 
 -- ----------------------------
 -- Table structure for `cmf_portal_category_post`
@@ -1031,7 +1039,7 @@ CREATE TABLE `cmf_user` (
 -- ----------------------------
 -- Records of cmf_user
 -- ----------------------------
-INSERT INTO `cmf_user` VALUES ('1', '1', '0', '0', '1520411668', '0', '0', '0.00', '1519717629', '1', 'admin', '###0b42c94eda47bebe518f99d5ca6095c5', 'admin', 'xuquanfu_2004@163.com', '', '', '', '127.0.0.1', '', '', null);
+INSERT INTO `cmf_user` VALUES ('1', '1', '0', '0', '1520989921', '0', '0', '0.00', '1519717629', '1', 'admin', '###0b42c94eda47bebe518f99d5ca6095c5', 'admin', 'xuquanfu_2004@163.com', '', '', '', '127.0.0.1', '', '', null);
 INSERT INTO `cmf_user` VALUES ('2', '2', '0', '0', '1519970808', '1', '1', '0.00', '1519719527', '1', '', '###769202661fab217e2672f7b4bc2f40a3', '', '', '', '', '', '127.0.0.1', '', '15959284901', null);
 
 -- ----------------------------
