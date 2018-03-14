@@ -28,134 +28,159 @@ CREATE TABLE `cmf_user` (
   KEY `user_nickname` (`user_nickname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
-
+-- ----------------------------
+-- Table structure for `cmf_goods`
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_goods`;
+CREATE TABLE `cmf_goods` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `sn` varchar(24) NOT NULL DEFAULT '' COMMENT '商品货号',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '商品名称',
+  `cate_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '产品分类id',
+  `images` varchar(255) NOT NULL DEFAULT '' COMMENT '商品详情图',
+  `thumbnail` varchar(64) NOT NULL DEFAULT '' COMMENT '商品缩略图',
+  `brief` varchar(255) NOT NULL DEFAULT '' COMMENT '商品简介',
+  `description` text COMMENT '商品详情',
+  `description_filtered` text COMMENT '处理过的商品详情',
+  `keywords` varchar(64) NOT NULL DEFAULT '' COMMENT 'seo keywords',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品价格',
+  `preferential_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品优惠价',
+  `brand` varchar(32) NOT NULL DEFAULT '' COMMENT '品牌',
+  `model` varchar(64) NOT NULL DEFAULT '' COMMENT '型号',
+  `unit` varchar(8) NOT NULL DEFAULT '' COMMENT '单位',
+  `stock` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '库存',
+  `sold_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '销量',
+  `create_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品创建用户id',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品最后一次更新用户id',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `up_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上架时间',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `is_selling` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否上架:0下架;1上架',
+  `is_new` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否新品:0非新品;1新品',
+  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否热销:0非热销;1热销',
+  `is_top` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶:0不置顶;1置顶',
+  `is_recommended` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐:0不推荐;1推荐',
+  `post_hits` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
+  `post_like` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
+  `comment_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
+  `comment_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态：-1删除；0未审核；1已审核',
+  `more` text COMMENT '扩展属性,如缩略图;格式为json',
+  PRIMARY KEY (`id`),
+  KEY `cate_brand_status` (`cate_id`,`brand`,`status`,`id`),
+  KEY `sn` (`sn`),
+  KEY `name` (`name`),
+  KEY `user_id` (`user_id`),
+  KEY `create_time` (`create_time`) USING BTREE,
+  KEY `up_time` (`up_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
 
 -- ----------------------------
 -- Table structure for `cmf_goods_category`
 -- ----------------------------
+DROP TABLE IF EXISTS `cmf_goods_category`;
 CREATE TABLE `cmf_goods_category` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
-  `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '分类父id',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类父id',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0无效；1有效',
+  `path` varchar(32) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
+  `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0无效；1有效',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
 
 -- ----------------------------
--- Table structure for `cmf_goods`
+-- Table structure for `cmf_combo`
 -- ----------------------------
-CREATE TABLE `cmf_goods` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
-  `sn`
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '商品名称',
-  `cate_id` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '产品分类id',
-  `img` varchar(255) NOT NULL DEFAULT '' COMMENT '商品详情图',
-  `thumb` varchar(500) NOT NULL DEFAULT '' COMMENT '商品缩略图',
-  `brief` varchar(500) NOT NULL DEFAULT '' COMMENT '商品简介',
-  `description` text COMMENT '商品详情',
-  `description_filtered` text COMMENT '处理过的商品详情',
-  `keywords` varchar(150) NOT NULL DEFAULT '' COMMENT 'seo keywords',
-  `price`
-  `preferential_price`
-  `brand` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '品牌',
-  `model` varchar(255) NOT NULL DEFAULT '' COMMENT '型号',
-  `unit_id`
-  `stock`
-  `selled_num`
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '商品创建用户id',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `up_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上架时间',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `is_selling` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否上架:0下架;1上架',
-  `is_new` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否新品:0非新品;1新品',
-  `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否热销:0非热销;1热销',
-  `is_top` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶:0不置顶;1置顶',
-  `is_recommended` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐:0不推荐;1推荐',
-  `post_hits` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
-  `post_like` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
-  `comment_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
-  `comment_count` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态：-1删除；0未审核；1已审核',
-  `more` text COMMENT '扩展属性,如缩略图;格式为json',
-  PRIMARY KEY (`id`),
-  KEY `type_status_date` (`post_type`,`post_status`,`create_time`,`id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `user_id` (`user_id`),
-  KEY `create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+DROP TABLE IF EXISTS `cmf_combo`;
+CREATE TABLE `cmf_combo` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '套餐id',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '套餐名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '套餐描述',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '套餐价格',
+  `unit` varchar(8) NOT NULL DEFAULT '套' COMMENT '单位',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：1系统创建；2用户创建',
+  `create_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '套餐创建用户id',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '套餐最后一次更新用户id',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `is_selling` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否上架:0下架;1上架',
+  `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='套餐表';
 
+-- ----------------------------
+-- Table structure for `cmf_combo_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_combo_info`;
+CREATE TABLE `cmf_combo_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `combo_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '套餐id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `goods_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品数量',
+  `goods_unit_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品单价',
+  `unit` varchar(8) NOT NULL DEFAULT '' COMMENT '单位',
+  `add_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加用户id',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：1一红；2二举；3三红；4四进；5对堂；6状元',
+  `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='套餐商品信息表';
 
-4. 套餐表combo（套餐不能修改或删除，只能下架）
+-- ----------------------------
+-- Table structure for `cmf_order`
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_order`;
+CREATE TABLE `cmf_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `sn` varchar(24) NOT NULL DEFAULT '' COMMENT '订单号',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：1普通订单；2积分兑换',
+  `is_invoice` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否需要发票（积分兑换不能开发票）：0不需要；1需要',
+  `invoice_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发票id',
+  `create_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单创建用户id',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单最后一次更新用户id',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `payment_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '支付方式：0线下；1微信',
+  `pay_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '支付时间',
+  `invoice_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '开票时间',
+  `develer_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发货时间',
+  `receive_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收货时间',
+  `check_uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '结单确认人id',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0退单；1正常；8支付成功；9结单',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
 
-字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
-:---:|:---:|:---:|:---:|:---:
-id | int(11) unsigned| | PRIMARY KEY | 主键
-combo_name | varchar(32) | | | 套餐名
-combo_price | float(11,2) | 0.00 | | 套餐价格
-combo_unit | varchar(8) | 套 | | 套餐单位：套
-create_time | varchar(16) | | | 创建时间
-create_author_id | int(11) | | | 创建者id
-modify_time | varchar(11) | NULL | | 最近修改时间
-modify_author_id | int(11) | NULL | | 最近修改者id
-type | tinyint(1) | | | 类型：1系统创建；2用户创建
-is_selling | tinyint(1) | 1 | | 是否上架：0下架；1上架
-status | tinyint(1) | 0 | | 状态：-1删除；0未启用；1启用
-5. 套餐商品信息combo_info
+-- ----------------------------
+-- Table structure for `cmf_order_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_order_info`;
+CREATE TABLE `cmf_order_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id或套餐id',
+  `goods_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品或套餐数量',
+  `goods_unit_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品或套餐单价',
+  `goods_unit` varchar(8) NOT NULL DEFAULT '' COMMENT '商品或套餐单位',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：1普通商品；2套餐',
+  `is_special` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否特价：0否；1特价',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；1正常',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单商品信息';
 
-字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
-:---:|:---:|:---:|:---:|:---:
-id | int(11) unsigned | | PRIMARY KEY | 主键
-combo_id | int(11) | | | 套餐id
-goods_id | int(11) | | | 商品id
-goods_num | int(11) | | | 商品数量
-goods_price | float(11,2) | | | 商品单价
-add_time | varchar(16) | | | 添加时间
-add_author_id | int(11) | | | 添加者
-type | tinyint(1) | | | 类型：1一红；2二举；3三红；4四进；5对堂；6状元
-sort | tinyint(2) | | | 排序：值越大排越后面
-status | tinyint(1) | | | 状态：-1删除 0正常
-6. 订单order
-
-字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
-:---:|:---:|:---:|:---:|:---:
-id | int(11) unsigned| | PRIMARY KEY | 主键
-order_sn | varchar(24) | | | 套餐名
-create_uid | int(11) | | | 创建者id
-create_time | varchar(16) | | | 创建时间
-type | tinyint(1) | | | 类型：1普通订单；2积分兑换
-is_invoice | tinyint(1) | 0 | | 是否需要发票（积分兑换不能开发票）：0不需要；1需要
-invoice_id | int(11) | NULL | | 发票id
-modify_time | varchar(16) | NULL | | 最近修改时间
-modify_uid | int(11) | NULL | | 最近修改者id
-payment | tinyint(1) | | | 支付方式：0线下；1微信
-pay_time | varchar(16) | NULL | | 支付时间
-invoice_time | varchar(16) | NULL | | 开票时间
-develer_time | varchar(16) | NULL | | 发货时间
-receive_time | varchar(16) | NULL | | 收货时间
-check_uid | int(11) | NULL | | 结单确认人id
-status | tinyint(1) | 0 | | 状态：-1删除；0退单；1正常；9结单
-
-7. 订单商品信息order_info（需要保存下单当时商品或套餐的详细信息，避免商品或套餐被更改导致旧的订单信息错误）
-
-字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
-:---:|:---:|:---:|:---:|:---:
-id | int(11) unsigned| | PRIMARY KEY | 主键
-order_id | int(11) | | | 订单id
-goods_id | int(11) | | | 商品id或套餐id
-goods_num | int(11) | | | 数量
-goods_unit | varchar(8) | | | 单位
-goods_price | float(11,2) | | | 商品单价或套餐单价
-type | tinyint(1) | | | 类型：1普通商品；2套餐
-is_special tinyint(1) | 0 | | | 是否特价：0否；1特价
-add_time | varchar(16) | | | 添加时间
-status | tinyint(1) | 0 | | 状态：-1删除；0正常
-del_time | varchar(16) | | | 删除时间
 8. 收货地址address
 
 字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
