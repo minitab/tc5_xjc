@@ -65,7 +65,7 @@ CREATE TABLE `cmf_goods` (
   `post_like` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
   `comment_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
   `comment_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态：-1删除；0未审核；1已审核',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态：-1删除；0未审核；1已审核',
   `more` text COMMENT '扩展属性,如缩略图;格式为json',
   PRIMARY KEY (`id`),
   KEY `cate_brand_status` (`cate_id`,`brand`,`status`,`id`),
@@ -88,7 +88,7 @@ CREATE TABLE `cmf_goods_category` (
   `path` varchar(32) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
   `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
   `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0无效；1有效',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0无效；1有效',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
@@ -111,7 +111,7 @@ CREATE TABLE `cmf_combo` (
   `is_selling` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否上架:0下架;1上架',
   `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
   `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='套餐表';
@@ -131,7 +131,7 @@ CREATE TABLE `cmf_combo_info` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：1一红；2二举；3三红；4四进；5对堂；6状元',
   `list_order` int(8) NOT NULL DEFAULT '10000' COMMENT '排序：值越小排越前面',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0未审核；1已审核',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='套餐商品信息表';
@@ -156,7 +156,7 @@ CREATE TABLE `cmf_order` (
   `develer_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发货时间',
   `receive_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '收货时间',
   `check_uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '结单确认人id',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0退单；1正常；8支付成功；9结单',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；0退单；1正常；8支付成功；9结单',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
@@ -176,11 +176,35 @@ CREATE TABLE `cmf_order_info` (
   `is_special` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否特价：0否；1特价',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；1正常',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；1正常',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单商品信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单商品信息表';
 
+-- ----------------------------
+-- Table structure for `cmf_address`
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_address`;
+CREATE TABLE `cmf_address` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `province_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '省id',
+  `province_name` varchar(32) NOT NULL DEFAULT '' COMMENT '省名',
+  `city_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '市id',
+  `city_name` varchar(32) NOT NULL DEFAULT '' COMMENT '省名',
+  `county_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '区县id',
+  `county_name` varchar(32) NOT NULL DEFAULT '' COMMENT '省名',
+  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `person` varchar(32) NOT NULL DEFAULT '' COMMENT '联系人',
+  `mobile` char(16) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `is_default` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否默认地址：0否；1是',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '状态：-1删除；1正常',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `userid_status` (`user_id`,`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='收货地址表';
 8. 收货地址address
 
 字段 | 类型（长度） | NULL/默认 | 特殊 | 备注
