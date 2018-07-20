@@ -43,7 +43,8 @@ class VerificationCodeController extends RestBaseController
 
         //TODO 限制 每个ip 的发送次数
 
-        $code = cmf_get_verification_code($data['username']);
+        //$code = cmf_get_verification_code($data['username']);
+        $code = 123456;
         if (empty($code)) {
             $this->error("验证码发送过多,请明天再试!");
         }

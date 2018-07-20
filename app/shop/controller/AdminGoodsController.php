@@ -5,12 +5,12 @@
  * Date: 2018-3-7
  * Time: 19:31
  */
-namespace app\admin\controller;
+namespace app\shop\controller;
 
 use cmf\controller\AdminBaseController;
 use think\Db;
 
-class GoodsController extends AdminBaseController
+class AdminGoodsController extends AdminBaseController
 {
     /**
      * 商品列表
@@ -34,4 +34,6 @@ class GoodsController extends AdminBaseController
         $this->assign('article_theme_files', []);
         return $this->fetch();
     }
+
+
 }
