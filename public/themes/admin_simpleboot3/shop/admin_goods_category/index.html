@@ -6,7 +6,7 @@
 			<li class="active"><a href="{:url('AdminGoodsCategory/index')}">分类管理</a></li>
 			<li><a href="{:url('AdminGoodsCategory/add')}">添加分类</a></li>
 		</ul>
-		<form method="post" class="js-ajax-form" action="{:url('AdminCategory/listOrder')}">
+		<form method="post" class="js-ajax-form" action="{:url('AdminGoodsCategory/listOrder')}">
 			<div class="table-actions">
 				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
 			</div>
@@ -21,7 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{$category_tree}
+					{$goods_category_tree}
 				</tbody>
 				<tfoot>
 					<tr>
